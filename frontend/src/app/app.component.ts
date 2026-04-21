@@ -19,7 +19,7 @@ import { AuthService } from './services/auth.service';
         @if (auth.isLoggedIn()) {
           <a routerLink="/saved" routerLinkActive="active">Saved</a>
           <a routerLink="/recommendations" routerLinkActive="active">For You</a>
-          <a routerLink="/shazam" routerLinkActive="active">🎤 Shazam</a>
+          <a routerLink="/shazam" routerLinkActive="active"> Shazam</a>
         }
       </div>
       <div class="nav-actions">

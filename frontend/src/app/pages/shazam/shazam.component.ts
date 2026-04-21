@@ -15,7 +15,7 @@ export class ShazamComponent {
   result: any = null;
   errorMessage = '';
   loadingMessage = 'Please wait...';
-  countdown = 8;
+  countdown = 10;
  
   private mediaRecorder!: MediaRecorder;
   private audioChunks: Blob[] = [];
@@ -42,7 +42,7 @@ export class ShazamComponent {
         };
         this.mediaRecorder.start();
         this.state = 'recording';
-        this.countdown = 8;
+        this.countdown = 10;
         this.cdr.detectChanges();
         this.countdownInterval = setInterval(() => {
           this.countdown--;
