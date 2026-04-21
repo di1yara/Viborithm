@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Добавь это
-import { FormsModule } from '@angular/forms';   // Добавь это для ngModel
+import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms';   
 import { TrackService } from '../../services/track.service';
 import { AuthService } from '../../services/auth.service';
 import { Track } from '../../interfaces/models';
@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  standalone: true, // Убедись, что это есть
-  imports: [CommonModule, FormsModule], // Добавь этот массив
+  standalone: true, 
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // ... (остальной код класса остается без изменений)
+  
   search() {
     if (!this.searchQuery.trim()) {
       this.searchResults = [];

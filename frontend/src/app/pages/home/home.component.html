@@ -1,6 +1,6 @@
 <div class="home-page">
 
-  <!-- HERO -->
+
   <section class="hero">
     <div class="hero-content">
       <h1 class="hero-title">
@@ -10,7 +10,7 @@
 
       <div class="search-container">
         <div class="search-box">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon"></span>
           <input type="text" [(ngModel)]="searchQuery" (input)="search()"
             placeholder="Search artists, songs..." class="search-input" />
           <button *ngIf="searchQuery" (click)="clearSearch()" class="clear-btn">✕</button>
@@ -31,7 +31,7 @@
     </div>
   </section>
 
-  <!-- CAROUSEL -->
+
   <section class="carousel-section" *ngIf="featuredTracks.length > 0">
     <h2 class="section-title">Featured Tracks</h2>
     <div class="carousel">
@@ -54,7 +54,6 @@
       <button class="carousel-btn next-btn" (click)="next()">›</button>
     </div>
 
-    <!-- MINI PLAYER -->
     <div class="mini-player" *ngIf="featuredTracks[activeIndex]">
       <img
         [src]="featuredTracks[activeIndex].cover || 'assets/default-cover.png'"
@@ -74,7 +73,7 @@
     </div>
   </section>
 
-  <!-- TOP TRACKS GRID -->
+ 
   <section class="top-section">
     <div class="top-header">
       <h2 class="section-title">Top This Week</h2>

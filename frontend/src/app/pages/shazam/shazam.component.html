@@ -1,7 +1,7 @@
 <div class="shazam-page">
   <div class="shazam-container">
 
-    <!-- IDLE -->
+    
     <div class="shazam-box" *ngIf="state === 'idle'">
       <div class="idle-icon">🎧</div>
       <h1>Song Recognition</h1>
@@ -9,7 +9,7 @@
       <button class="listen-btn" (click)="startListening()">🎤 Start Listening</button>
     </div>
 
-    <!-- RECORDING -->
+    
     <div class="shazam-box" *ngIf="state === 'recording'">
       <div class="shazam-waves">
         <div class="wave-ring r1"></div>
@@ -26,7 +26,7 @@
       <button class="stop-btn" (click)="stopListening()"> Stop</button>
     </div>
 
-    <!-- LOADING -->
+    
     <div class="shazam-box" *ngIf="state === 'loading'">
       <div class="spinner-wrap">
         <div class="spinner"></div>
@@ -52,7 +52,7 @@
       </button>
     </div>
 
-    <!-- NOT FOUND -->
+  
     <div class="shazam-box" *ngIf="state === 'notfound'">
       <div class="idle-icon">😕</div>
       <h1>No match found</h1>
@@ -60,7 +60,6 @@
       <button class="listen-btn" (click)="reset()">🎤 Try Again</button>
     </div>
 
-    <!-- ERROR -->
     <div class="shazam-box" *ngIf="state === 'error'">
       <div class="idle-icon">⚠️</div>
       <h1>Something went wrong</h1>
