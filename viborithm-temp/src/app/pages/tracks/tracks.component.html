@@ -1,0 +1,115 @@
+<div class="tracks-page">
+  <div class="page-header">
+    <h1> All Tracks</h1>
+    <button class="btn-add" (click)="showAddForm = !showAddForm">
+      {{ showAddForm ? '✕ Cancel' : '+ Add Track' }}
+    </button>
+  </div>
+
+  <!-- ADD TRACK FORM -->
+  <div class="add-form" *ngIf="showAddForm">
+    <h3>Add New Track</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Title *</label>
+        <input type="text" [(ngModel)]="newTrack.title" placeholder="Song title" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label>Artist *</label>
+        <input type="text" [(ngModel)]="newTrack.artist" placeholder="Artist name" class="form-input" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Genre</label>
+        <select [(ngModel)]="newTrack.genre_id" class="form-input">
+          <option [value]="null">Select genre</option>
+          <option *ngFor="let g of genres" [value]="g.id">{{ g.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Audio URL (optional)</label>
+        <input type="url" [(ngModel)]="newTrack.audio_url" placeholder="https://youtube.com/..." class="form-input" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Audio File (upload to play on site)</label>
+      <div class="file-upload" (click)="fileInput.click()">
+        <input #fileInput type="file" accept="audio/*" (change)="onFileSelect($event)" hidden />
+        <span *ngIf="!selectedFile">Click to upload audio file (mp3, wav, ogg)</span>
+        <span *ngIf="selectedFile" class="file-selected"> {{ selectedFile.name }}</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea [(ngModel)]="newTrack.description" placeholder="Write something about this track..." class="form-input" rows="3"></textarea>
+    </div>
+    <div class="error-msg" *ngIf="error">{{ error }}</div>
+    <button class="btn-primary" (click)="addTrack()" [disabled]="loading">
+      {{ loading ? 'Adding...' : 'Add Track' }}
+    </button>
+  </div>
+
+  <div class="success-msg" *ngIf="success"> {{ success }}</div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" [(ngModel)]="searchQuery" (input)="applyFilter()" placeholder="Search tracks..." class="filter-input" />
+    </div>
+    <select [(ngModel)]="selectedGenre" (change)="applyFilter()" class="filter-select">
+      <option value="">All Genres</option>
+      <option *ngFor="let g of genres" [value]="g.name">{{ g.name }}</option>
+    </select>
+  </div>
+
+  <!-- TRACKS LIST -->
+  <div class="tracks-list">
+    <div class="track-row" *ngFor="let track of filtered">
+      <img [src]="track.cover || 'assets/default-cover.png'" [alt]="track.title" class="row-cover" />
+
+      <div class="row-info">
+        <span class="row-title">{{ track.title }}</span>
+        <span class="row-artist">{{ track.artist }}</span>
+        <span class="row-genre">{{ track.genre?.name }}</span>
+        <p class="row-desc" *ngIf="track.description">{{ track.description }}</p>
+
+        <!-- AUDIO PLAYER -->
+        <div class="audio-player" *ngIf="track.audio_file">
+          <audio controls [src]="'http://127.0.0.1:8000' + track.audio_file" preload="none">
+          </audio>
+        </div>
+      </div>
+
+      <div class="row-actions">
+        <div class="stars">
+          <span
+            *ngFor="let s of getRatingStars(track.avg_rating)"
+            [class.filled]="s <= getFilledStars(track.avg_rating)"
+            (click)="rate(track, s)"
+            class="star"
+          >★</span>
+          <span class="rating-val" *ngIf="track.avg_rating">{{ track.avg_rating }}</span>
+        </div>
+
+        <div class="action-btns">
+          <button
+            class="btn-save"
+            [class.saved]="track.is_saved"
+            (click)="toggleSave(track)"
+          >{{ track.is_saved ? '❤️ Saved' : '🤍 Save' }}</button>
+
+          <a *ngIf="track.audio_url && !track.audio_file"
+             [href]="track.audio_url" target="_blank" class="btn-play">▶ Play</a>
+
+          <button class="btn-delete" (click)="deleteTrack(track.id)">🗑</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty" *ngIf="filtered.length === 0">
+      <p>No tracks found. Try a different search.</p>
+    </div>
+  </div>
+</div>

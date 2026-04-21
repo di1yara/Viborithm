@@ -1,0 +1,72 @@
+<div class="shazam-page">
+  <div class="shazam-container">
+
+    <!-- IDLE -->
+    <div class="shazam-box" *ngIf="state === 'idle'">
+      <div class="idle-icon">🎧</div>
+      <h1>Song Recognition</h1>
+      <p>Tap the button and hold your device near the music source</p>
+      <button class="listen-btn" (click)="startListening()">🎤 Start Listening</button>
+    </div>
+
+    <!-- RECORDING -->
+    <div class="shazam-box" *ngIf="state === 'recording'">
+      <div class="shazam-waves">
+        <div class="wave-ring r1"></div>
+        <div class="wave-ring r2"></div>
+        <div class="wave-ring r3"></div>
+        <div class="mic-center">🎙️</div>
+      </div>
+      <h1>Listening...</h1>
+      <p>Hold your device near the music source</p>
+      <div class="timer">{{ countdown }}s</div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width]="((10 - countdown) / 10 * 100) + '%'"></div>
+      </div>
+      <button class="stop-btn" (click)="stopListening()">⏹ Stop</button>
+    </div>
+
+    <!-- LOADING -->
+    <div class="shazam-box" *ngIf="state === 'loading'">
+      <div class="spinner-wrap">
+        <div class="spinner"></div>
+        <div class="spinner-inner"></div>
+        <div class="spinner-icon">🔍</div>
+      </div>
+      <h1>Identifying...</h1>
+      <p>{{ loadingMessage }}</p>
+    </div>
+
+    <!-- RESULT -->
+    <div class="shazam-box result-box" *ngIf="state === 'result' && result">
+      <div class="result-cover">
+        <img *ngIf="result.coverart" [src]="result.coverart" [alt]="result.title" />
+        <div *ngIf="!result.coverart" class="cover-placeholder">🎵</div>
+      </div>
+      <div class="found-badge">✅ Song Found!</div>
+      <h1 class="result-title">{{ result.title }}</h1>
+      <p class="result-artist">{{ result.subtitle }}</p>
+      <p class="result-genre" *ngIf="result.genres?.primary">{{ result.genres.primary }}</p>
+      <button class="listen-btn" (click)="reset()" style="margin-top:1.5rem">
+        🎤 Listen Again
+      </button>
+    </div>
+
+    <!-- NOT FOUND -->
+    <div class="shazam-box" *ngIf="state === 'notfound'">
+      <div class="idle-icon">😕</div>
+      <h1>No match found</h1>
+      <p>Try again with the music louder or closer to your microphone</p>
+      <button class="listen-btn" (click)="reset()">🎤 Try Again</button>
+    </div>
+
+    <!-- ERROR -->
+    <div class="shazam-box" *ngIf="state === 'error'">
+      <div class="idle-icon">⚠️</div>
+      <h1>Something went wrong</h1>
+      <p>{{ errorMessage }}</p>
+      <button class="listen-btn" (click)="reset()">Try Again</button>
+    </div>
+
+  </div>
+</div>

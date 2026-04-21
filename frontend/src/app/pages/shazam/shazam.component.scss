@@ -1,0 +1,40 @@
+/* BUTTONS */
+.listen-btn {
+  background: linear-gradient(135deg, #ff2d78, #c0206a);
+  border: none;
+  color: #fff;
+  padding: 1.2rem 3.5rem;
+  border-radius: 50px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(255,45,120,0.4);
+  transition: all 0.25s;
+  letter-spacing: 0.03em;
+  margin-top: 1.5rem;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(255,45,120,0.55);
+  }
+  &:active { transform: translateY(0); }
+}
+
+.stop-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #f0f0f5;
+  padding: 1.1rem 3rem;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+
+  &:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+  }
+}

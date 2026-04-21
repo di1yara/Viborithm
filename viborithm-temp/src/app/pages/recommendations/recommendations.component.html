@@ -1,0 +1,26 @@
+<div class="tracks-page">
+  <div class="page-header">
+    <h1>✨ Recommended For You</h1>
+    <p class="page-sub">Based on your ratings and preferences</p>
+  </div>
+  <div *ngIf="loading" class="loading">Loading recommendations...</div>
+  <div class="tracks-grid" *ngIf="!loading && tracks.length > 0">
+    <div class="track-card" *ngFor="let track of tracks">
+      <div class="track-cover-wrap">
+        <img [src]="track.cover || 'assets/default-cover.png'" [alt]="track.title" />
+        <a [href]="track.audio_url" target="_blank" class="play-overlay">▶</a>
+      </div>
+      <div class="track-meta">
+        <span class="track-title">{{ track.title }}</span>
+        <span class="track-artist">{{ track.artist }}</span>
+        <span class="track-genre-tag">{{ track.genre?.name }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="empty" *ngIf="!loading && tracks.length === 0">
+    <p>Rate some tracks first to get personalized recommendations! 🎵</p>
+    <a routerLink="/tracks" class="btn-primary" style="display:inline-block;margin-top:1rem;">
+      Explore Tracks
+    </a>
+  </div>
+</div>

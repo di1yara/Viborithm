@@ -1,0 +1,116 @@
+<!-- src/app/pages/home/home.component.html -->
+<div class="home-page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Discover Your <span class="accent">Sound</span>
+      </h1>
+      <p class="hero-subtitle">Rate, save, and get personalized music recommendations</p>
+
+      <!-- SEARCH BAR (ngModel #1) -->
+      <div class="search-container">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            (input)="search()"
+            placeholder="Search artists, songs..."
+            class="search-input"
+          />
+          <button *ngIf="searchQuery" (click)="clearSearch()" class="clear-btn">✕</button>
+        </div>
+      </div>
+
+      <!-- SEARCH RESULTS -->
+      <div class="search-results" *ngIf="isSearching">
+        <div *ngIf="searchResults.length === 0" class="no-results">No results found</div>
+        <div class="result-item" *ngFor="let track of searchResults">
+          <img [src]="track.cover || 'assets/default-cover.png'" [alt]="track.title" class="result-cover" />
+          <div class="result-info">
+            <span class="result-title">{{ track.title }}</span>
+            <span class="result-artist">{{ track.artist }}</span>
+          </div>
+          <span class="result-genre">{{ track.genre?.name }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAROUSEL -->
+  <section class="carousel-section" *ngIf="featuredTracks.length > 0">
+    <h2 class="section-title">Featured Tracks</h2>
+    <div class="carousel">
+      <button class="carousel-btn prev" (click)="prev()">‹</button>
+
+      <div class="carousel-track">
+        <div
+          class="carousel-card"
+          *ngFor="let track of featuredTracks; let i = index"
+          [class.active]="i === activeIndex"
+          [class.prev]="i === (activeIndex - 1 + featuredTracks.length) % featuredTracks.length"
+          [class.next]="i === (activeIndex + 1) % featuredTracks.length"
+          (click)="setActive(i)"
+        >
+          <img
+            [src]="track.cover || 'assets/default-cover.png'"
+            [alt]="track.title"
+            class="card-cover"
+          />
+          <div class="card-info" *ngIf="i === activeIndex">
+            <h3>{{ track.title }}</h3>
+            <p>{{ track.artist }}</p>
+            <div class="card-rating">{{ getRatingStars(track.avg_rating) }}</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-btn next-btn" (click)="next()">›</button>
+    </div>
+
+    <!-- MINI PLAYER -->
+    <div class="mini-player" *ngIf="featuredTracks[activeIndex]">
+      <img
+        [src]="featuredTracks[activeIndex].cover || 'assets/default-cover.png'"
+        class="player-thumb"
+      />
+      <div class="player-info">
+        <span class="player-title">{{ featuredTracks[activeIndex].title }}</span>
+        <span class="player-artist">{{ featuredTracks[activeIndex].artist }}</span>
+      </div>
+      <div class="player-controls">
+        <button (click)="prev()">⏮</button>
+        <button class="play-btn">⏸</button>
+        <button (click)="next()">⏭</button>
+      </div>
+      <a [href]="featuredTracks[activeIndex].audio_url" target="_blank" class="open-link">▶ Open</a>
+    </div>
+  </section>
+
+  <!-- TOP TRACKS GRID -->
+  <section class="top-section">
+    <div class="top-header">
+      <h2 class="section-title">Top This Week</h2>
+      <button class="btn-explore" (click)="goToTracks()">Explore All →</button>
+    </div>
+    <div class="tracks-grid">
+      <div class="track-card" *ngFor="let track of tracks.slice(0, 8)">
+        <div class="track-cover-wrap">
+          <img [src]="track.cover || 'assets/default-cover.png'" [alt]="track.title" />
+          <a [href]="track.audio_url" target="_blank" class="play-overlay">▶</a>
+        </div>
+        <div class="track-meta">
+          <span class="track-title">{{ track.title }}</span>
+          <span class="track-artist">{{ track.artist }}</span>
+          <span class="track-genre-tag">{{ track.genre?.name }}</span>
+          <div class="track-stars">{{ getRatingStars(track.avg_rating) }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ERROR -->
+  <div class="error-msg" *ngIf="error">{{ error }}</div>
+</div>

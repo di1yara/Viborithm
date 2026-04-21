@@ -1,0 +1,31 @@
+<!-- src/app/pages/login/login.component.html -->
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">🎵 Viborithm</div>
+    <h2>Welcome Back</h2>
+    <p class="auth-sub">Sign in to your account</p>
+
+    <div class="form-group">
+      <label>Username</label>
+      <!-- ngModel #2 -->
+      <input type="text" [(ngModel)]="username" placeholder="Enter username" class="form-input" />
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <!-- ngModel #3 -->
+      <input type="password" [(ngModel)]="password" placeholder="Enter password" class="form-input" (keyup.enter)="login()" />
+    </div>
+
+    <div class="error-msg" *ngIf="error">{{ error }}</div>
+
+    <button class="btn-primary" (click)="login()" [disabled]="loading">
+      <span *ngIf="!loading">Login</span>
+      <span *ngIf="loading">Signing in...</span>
+    </button>
+
+    <p class="auth-footer">
+      Don't have an account? <a routerLink="/register">Sign Up</a>
+    </p>
+  </div>
+</div>
