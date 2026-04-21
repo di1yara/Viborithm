@@ -1,8 +1,12 @@
 <div class="tracks-page">
-  <div class="page-header"><h1> Saved Tracks</h1></div>
+  <div class="page-header"><h1>❤️ Saved Tracks</h1></div>
   <div class="tracks-list">
     <div class="track-row" *ngFor="let s of saved">
-      <img [src]="s.track.cover || 'assets/default-cover.png'" [alt]="s.track.title" class="row-cover" />
+      <img 
+        [src]="s.track.cover || 'assets/default-cover.png'" 
+        [alt]="s.track.title" 
+        class="row-cover" 
+      />
       <div class="row-info">
         <span class="row-title">{{ s.track.title }}</span>
         <span class="row-artist">{{ s.track.artist }}</span>
@@ -11,7 +15,7 @@
       <div class="row-actions">
         <div class="action-btns">
           <a [href]="s.track.audio_url" target="_blank" class="btn-play">▶ Play</a>
-          <button class="btn-save saved" (click)="remove(s.track.id)"> Remove</button>
+          <button class="btn-save saved" (click)="remove(s.track.id)">❤️ Remove</button>
         </div>
       </div>
     </div>

@@ -60,7 +60,8 @@
  
   <div class="tracks-list">
     <div class="track-row" *ngFor="let track of filtered">
-      <img [src]="track.cover || 'assets/default-cover.png'" [alt]="track.title" class="row-cover" />
+      <!-- tracks и saved -->
+    <img [src]="track.cover || 'assets/default-cover.png'" [alt]="track.title" class="card-cover" />
       <div class="row-info">
         <span class="row-title">{{ track.title }}</span>
         <span class="row-artist">{{ track.artist }}</span>

@@ -1,4 +1,3 @@
-<!-- src/app/pages/home/home.component.html -->
 <div class="home-page">
 
   <!-- HERO -->
@@ -9,22 +8,15 @@
       </h1>
       <p class="hero-subtitle">Rate, save, and get personalized music recommendations</p>
 
-      <!-- SEARCH BAR (ngModel #1) -->
       <div class="search-container">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input
-            type="text"
-            [(ngModel)]="searchQuery"
-            (input)="search()"
-            placeholder="Search artists, songs..."
-            class="search-input"
-          />
+          <input type="text" [(ngModel)]="searchQuery" (input)="search()"
+            placeholder="Search artists, songs..." class="search-input" />
           <button *ngIf="searchQuery" (click)="clearSearch()" class="clear-btn">✕</button>
         </div>
       </div>
 
-      <!-- SEARCH RESULTS -->
       <div class="search-results" *ngIf="isSearching">
         <div *ngIf="searchResults.length === 0" class="no-results">No results found</div>
         <div class="result-item" *ngFor="let track of searchResults">
@@ -44,21 +36,14 @@
     <h2 class="section-title">Featured Tracks</h2>
     <div class="carousel">
       <button class="carousel-btn prev" (click)="prev()">‹</button>
-
       <div class="carousel-track">
-        <div
-          class="carousel-card"
+        <div class="carousel-card"
           *ngFor="let track of featuredTracks; let i = index"
           [class.active]="i === activeIndex"
           [class.prev]="i === (activeIndex - 1 + featuredTracks.length) % featuredTracks.length"
           [class.next]="i === (activeIndex + 1) % featuredTracks.length"
-          (click)="setActive(i)"
-        >
-          <img
-            [src]="track.cover || 'assets/default-cover.png'"
-            [alt]="track.title"
-            class="card-cover"
-          />
+          (click)="setActive(i)">
+          <img [src]="track.cover || 'assets/default-cover.png'" [alt]="track.title" class="card-cover" />
           <div class="card-info" *ngIf="i === activeIndex">
             <h3>{{ track.title }}</h3>
             <p>{{ track.artist }}</p>
@@ -66,7 +51,6 @@
           </div>
         </div>
       </div>
-
       <button class="carousel-btn next-btn" (click)="next()">›</button>
     </div>
 
@@ -74,6 +58,7 @@
     <div class="mini-player" *ngIf="featuredTracks[activeIndex]">
       <img
         [src]="featuredTracks[activeIndex].cover || 'assets/default-cover.png'"
+        [alt]="featuredTracks[activeIndex].title"
         class="player-thumb"
       />
       <div class="player-info">
@@ -111,6 +96,5 @@
     </div>
   </section>
 
-  <!-- ERROR -->
   <div class="error-msg" *ngIf="error">{{ error }}</div>
 </div>
