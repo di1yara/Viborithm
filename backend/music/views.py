@@ -12,9 +12,6 @@ from .serializers                   import (
 )
 
 
-# ════════════════════════════════════════════
-#  FBV
-# ════════════════════════════════════════════
 
 @api_view(['POST'])
 def register(request):
@@ -53,9 +50,7 @@ def rate_track(request):
     return Response(serializer.errors, status=400)
 
 
-# ════════════════════════════════════════════
-#  CBV
-# ════════════════════════════════════════════
+
 
 class TrackListCreateView(generics.ListCreateAPIView):
     serializer_class = TrackSerializer

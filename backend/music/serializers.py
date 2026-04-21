@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Genre, Track, Rating, SavedTrack
 
 
-# ── 2 обычных Serializer (не ModelSerializer) ──────────────────
+
 
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)
@@ -33,7 +33,7 @@ class RatingSerializer(serializers.Serializer):
         return value
 
 
-# ── 2 ModelSerializer ──────────────────────────────────────────
+
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
